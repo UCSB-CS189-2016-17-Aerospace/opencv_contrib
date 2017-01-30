@@ -190,22 +190,22 @@ CV_EXPORTS_W static void _threshold(InputArray _in, OutputArray _out, int winSiz
   * @brief Given a tresholded image, find the contours, calculate their polygonal approximation
   * and take those that accomplish some conditions
   */
-CV_EXPORTS_W static void _findMarkerContours(InputArray _in, vector< vector< Point2f > > &candidates,
-                                             vector< vector< Point > > &contoursOut, double minPerimeterRate,
+CV_EXPORTS_W static void _findMarkerContours(InputArray _in, CV_OUT std::vector< std::vector< Point2f > > &candidates,
+                                             CV_OUT std::vector< std::vector< Point > > &contoursOut, double minPerimeterRate,
                                              double maxPerimeterRate, double accuracyRate,
                                              double minCornerDistanceRate, int minDistanceToBorder);
 
 /**
  * @brief Initial steps on finding square candidates
  */
-CV_EXPORTS_W static void _detectInitialCandidates(const Mat &grey, CV_OUT vector< vector< Point2f > > &candidates,
-                                                  CV_OUT vector< vector< Point > > &contours,
+CV_EXPORTS_W static void _detectInitialCandidates(const Mat &grey, CV_OUT std::vector< std::vector< Point2f > > &candidates,
+                                                  CV_OUT std::vector< std::vector< Point > > &contours,
                                                   const Ptr<DetectorParameters> &params);
 
 /**
   * @brief Assure order of candidate corners is clockwise direction
   */
-CV_EXPORTS_W static void _reorderCandidatesCorners(CV_IN_OUT vector< vector< Point2f > > &candidates);
+CV_EXPORTS_W static void _reorderCandidatesCorners(CV_IN_OUT std::vector< std::vector< Point2f > > &candidates);
 
 /**
  * @brief Pose estimation for single markers
