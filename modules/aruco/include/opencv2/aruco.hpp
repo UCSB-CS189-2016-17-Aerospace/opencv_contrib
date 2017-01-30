@@ -200,7 +200,7 @@ CV_EXPORTS_W static void _findMarkerContours(InputArray _in, CV_OUT std::vector<
  */
 CV_EXPORTS_W static void _detectInitialCandidates(const Mat &grey, CV_OUT std::vector< std::vector< Point2f > > &candidates,
                                                   CV_OUT std::vector< std::vector< Point > > &contours,
-                                                  const Ptr<DetectorParameters> &params);
+                                                  const Ptr<DetectorParameters> &params = DetectorParameters::create());
 
 /**
   * @brief Assure order of candidate corners is clockwise direction
