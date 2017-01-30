@@ -102,7 +102,7 @@ static void _convertToGrey(InputArray _in, OutputArray _out) {
 /**
   * @brief Threshold input image using adaptive thresholding
   */
-static void _threshold(InputArray _in, OutputArray _out, int winSize, double constant) {
+void _threshold(InputArray _in, OutputArray _out, int winSize, double constant) {
 
     CV_Assert(winSize >= 3);
     if(winSize % 2 == 0) winSize++; // win size must be odd
@@ -114,7 +114,7 @@ static void _threshold(InputArray _in, OutputArray _out, int winSize, double con
   * @brief Given a tresholded image, find the contours, calculate their polygonal approximation
   * and take those that accomplish some conditions
   */
-static void _findMarkerContours(InputArray _in, vector< vector< Point2f > > &candidates,
+void _findMarkerContours(InputArray _in, vector< vector< Point2f > > &candidates,
                                 vector< vector< Point > > &contoursOut, double minPerimeterRate,
                                 double maxPerimeterRate, double accuracyRate,
                                 double minCornerDistanceRate, int minDistanceToBorder) {
@@ -181,7 +181,7 @@ static void _findMarkerContours(InputArray _in, vector< vector< Point2f > > &can
 /**
   * @brief Assure order of candidate corners is clockwise direction
   */
-static void _reorderCandidatesCorners(vector< vector< Point2f > > &candidates) {
+void _reorderCandidatesCorners(vector< vector< Point2f > > &candidates) {
 
     for(unsigned int i = 0; i < candidates.size(); i++) {
         double dx1 = candidates[i][1].x - candidates[i][0].x;
@@ -311,7 +311,7 @@ class DetectInitialCandidatesParallel : public ParallelLoopBody {
 /**
  * @brief Initial steps on finding square candidates
  */
-static void _detectInitialCandidates(const Mat &grey, vector< vector< Point2f > > &candidates,
+void _detectInitialCandidates(const Mat &grey, vector< vector< Point2f > > &candidates,
                                      vector< vector< Point > > &contours,
                                      const Ptr<DetectorParameters> &params) {
 

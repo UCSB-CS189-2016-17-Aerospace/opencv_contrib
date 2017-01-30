@@ -196,16 +196,16 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
                                              double minCornerDistanceRate, int minDistanceToBorder);
 
 /**
+  * @brief Assure order of candidate corners is clockwise direction
+  */
+        CV_EXPORTS_W void _reorderCandidatesCorners(CV_IN_OUT std::vector< std::vector< Point2f > > &candidates);
+
+/**
  * @brief Initial steps on finding square candidates
  */
         CV_EXPORTS_W void _detectInitialCandidates(const Mat &grey, CV_OUT std::vector< std::vector< Point2f > > &candidates,
                                                   CV_OUT std::vector< std::vector< Point > > &contours,
                                                   const Ptr<DetectorParameters> &params = DetectorParameters::create());
-
-/**
-  * @brief Assure order of candidate corners is clockwise direction
-  */
-        CV_EXPORTS_W void _reorderCandidatesCorners(CV_IN_OUT std::vector< std::vector< Point2f > > &candidates);
 
 /**
  * @brief Pose estimation for single markers
