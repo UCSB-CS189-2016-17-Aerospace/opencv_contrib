@@ -198,7 +198,22 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
 /**
   * @brief Assure order of candidate corners is clockwise direction
   */
-        CV_EXPORTS_W void _reorderCandidatesCorners(CV_IN_OUT std::vector< std::vector< Point2f > > &candidates);
+        CV_EXPORTS_W void _reorderCandidatesCorners(CV_OUT std::vector< std::vector< Point2f > > &candidates);
+
+/**
+  * @brief Check candidates that are too close to each other and remove the smaller one
+  */
+        CV_EXPORTS_W void _filterTooCloseCandidates(const std::vector< std::vector< Point2f > > &candidatesIn,
+                                       CV_OUT std::vector< std::vector< Point2f > > &candidatesOut,
+                                       const std::vector< std::vector< Point > > &contoursIn,
+                                       CV_OUT std::vector< std::vector< Point > > &contoursOut,
+                                       double minMarkerDistanceRate);
+
+/**
+ * @brief Detect square candidates in the input image
+ */
+        CV_EXPORTS_W void _detectCandidates(InputArray _image, std::vector< std::vector< Point2f > >& candidatesOut,
+                               std::vector< std::vector< Point > >& contoursOut, const Ptr<DetectorParameters> &_params);
 
 /**
  * @brief Initial steps on finding square candidates
@@ -207,6 +222,38 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
                                                   CV_OUT std::vector< std::vector< Point > > &contours,
                                                   const Ptr<DetectorParameters> &params = DetectorParameters::create());
 
+/**
+  * @brief Given an input image and candidate corners, extract the bits of the candidate, including
+  * the border bits
+  */
+        CV_EXPORTS_W Mat _extractBits(InputArray _image, InputArray _corners, int markerSize,
+                                int markerBorderBits, int cellSize, double cellMarginRate,
+                                double minStdDevOtsu);
+
+/**
+  * @brief Return number of erroneous bits in border, i.e. number of white bits in border.
+  */
+        CV_EXPORTS_W int _getBorderErrors(const Mat &bits, int markerSize, int borderSize);
+
+/**
+ * @brief Tries to identify one candidate given the dictionary
+ */
+        CV_EXPORTS_W bool _identifyOneCandidate(const Ptr<Dictionary> &dictionary, InputArray _image,
+                                   InputOutputArray _corners, int &idx, const Ptr<DetectorParameters> &params);
+
+/**
+ * @brief Identify square candidates according to a marker dictionary
+ */
+        CV_EXPORTS_W void _identifyCandidates(InputArray _image, std::vector< std::vector< Point2f > >& _candidates,
+                                 InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
+                                 std::vector< std::vector< Point2f > >& _accepted, CV_OUT std::vector< int >& ids,
+                                 const Ptr<DetectorParameters> &params,
+                                 OutputArrayOfArrays _rejected = noArray());
+
+/**
+  * @brief Final filter of markers after its identification
+  */
+        CV_EXPORTS_W void _filterDetectedMarkers(CV_OUT std::vector< std::vector< Point2f > >& _corners, CV_OUT vector< int >& _ids);
 /**
  * @brief Pose estimation for single markers
  *

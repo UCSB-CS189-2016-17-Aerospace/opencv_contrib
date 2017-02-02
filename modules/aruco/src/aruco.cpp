@@ -200,7 +200,7 @@ void _reorderCandidatesCorners(vector< vector< Point2f > > &candidates) {
 /**
   * @brief Check candidates that are too close to each other and remove the smaller one
   */
-static void _filterTooCloseCandidates(const vector< vector< Point2f > > &candidatesIn,
+void _filterTooCloseCandidates(const vector< vector< Point2f > > &candidatesIn,
                                       vector< vector< Point2f > > &candidatesOut,
                                       const vector< vector< Point > > &contoursIn,
                                       vector< vector< Point > > &contoursOut,
@@ -356,7 +356,7 @@ void _detectInitialCandidates(const Mat &grey, vector< vector< Point2f > > &cand
 /**
  * @brief Detect square candidates in the input image
  */
-static void _detectCandidates(InputArray _image, vector< vector< Point2f > >& candidatesOut,
+void _detectCandidates(InputArray _image, vector< vector< Point2f > >& candidatesOut,
                               vector< vector< Point > >& contoursOut, const Ptr<DetectorParameters> &_params) {
 
     Mat image = _image.getMat();
@@ -384,7 +384,7 @@ static void _detectCandidates(InputArray _image, vector< vector< Point2f > >& ca
   * @brief Given an input image and candidate corners, extract the bits of the candidate, including
   * the border bits
   */
-static Mat _extractBits(InputArray _image, InputArray _corners, int markerSize,
+Mat _extractBits(InputArray _image, InputArray _corners, int markerSize,
                         int markerBorderBits, int cellSize, double cellMarginRate,
                         double minStdDevOtsu) {
 
@@ -454,7 +454,7 @@ static Mat _extractBits(InputArray _image, InputArray _corners, int markerSize,
 /**
   * @brief Return number of erroneous bits in border, i.e. number of white bits in border.
   */
-static int _getBorderErrors(const Mat &bits, int markerSize, int borderSize) {
+int _getBorderErrors(const Mat &bits, int markerSize, int borderSize) {
 
     int sizeWithBorders = markerSize + 2 * borderSize;
 
@@ -480,7 +480,7 @@ static int _getBorderErrors(const Mat &bits, int markerSize, int borderSize) {
 /**
  * @brief Tries to identify one candidate given the dictionary
  */
-static bool _identifyOneCandidate(const Ptr<Dictionary> &dictionary, InputArray _image,
+bool _identifyOneCandidate(const Ptr<Dictionary> &dictionary, InputArray _image,
                                   InputOutputArray _corners, int &idx, const Ptr<DetectorParameters> &params) {
 
     CV_Assert(_corners.total() == 4);
@@ -601,7 +601,7 @@ static void _copyVector2Output(vector< vector< Point2f > > &vec, OutputArrayOfAr
 /**
  * @brief Identify square candidates according to a marker dictionary
  */
-static void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& _candidates,
+void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& _candidates,
                                 InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
                                 vector< vector< Point2f > >& _accepted, vector< int >& ids,
                                 const Ptr<DetectorParameters> &params,
@@ -656,7 +656,7 @@ static void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& 
 /**
   * @brief Final filter of markers after its identification
   */
-static void _filterDetectedMarkers(vector< vector< Point2f > >& _corners, vector< int >& _ids) {
+void _filterDetectedMarkers(vector< vector< Point2f > >& _corners, vector< int >& _ids) {
 
     CV_Assert(_corners.size() == _ids.size());
     if(_corners.empty()) return;
