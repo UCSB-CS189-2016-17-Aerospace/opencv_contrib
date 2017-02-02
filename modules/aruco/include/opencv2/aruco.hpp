@@ -253,7 +253,7 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
 /**
   * @brief Final filter of markers after its identification
   */
-        CV_EXPORTS_W void _filterDetectedMarkers(CV_OUT std::vector< std::vector< Point2f > >& _corners, CV_OUT vector< int >& _ids);
+        CV_EXPORTS_W void _filterDetectedMarkers(CV_OUT std::vector< std::vector< Point2f > >& _corners, CV_OUT std::vector< int >& _ids);
 /**
  * @brief Pose estimation for single markers
  *
