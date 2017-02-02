@@ -248,7 +248,7 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
         CV_EXPORTS_W void _identifyCandidates(InputArray _image, std::vector< std::vector< Point2f > >& _candidates,
                                  InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
                                  std::vector< std::vector< Point2f > >& _accepted, CV_OUT std::vector< int >& ids,
-                                 const Ptr<DetectorParameters> &params = DetectorParameters::create(),
+                                 const Ptr<DetectorParameters> &params,
                                  OutputArrayOfArrays _rejected);
 
 /**
