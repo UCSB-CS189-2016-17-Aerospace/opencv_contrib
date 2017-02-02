@@ -239,7 +239,8 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
  * @brief Tries to identify one candidate given the dictionary
  */
         CV_EXPORTS_W bool _identifyOneCandidate(const Ptr<Dictionary> &dictionary, InputArray _image,
-                                   InputOutputArray _corners, int &idx, const Ptr<DetectorParameters> &params);
+                                                InputOutputArray _corners, CV_OUT int &idx,
+                                                const Ptr<DetectorParameters> &params = DetectorParameters::create());
 
 /**
  * @brief Identify square candidates according to a marker dictionary
@@ -247,7 +248,7 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
         CV_EXPORTS_W void _identifyCandidates(InputArray _image, std::vector< std::vector< Point2f > >& _candidates,
                                  InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
                                  std::vector< std::vector< Point2f > >& _accepted, CV_OUT std::vector< int >& ids,
-                                 const Ptr<DetectorParameters> &params,
+                                 const Ptr<DetectorParameters> &params = DetectorParameters::create(),
                                  OutputArrayOfArrays _rejected);
 
 /**
