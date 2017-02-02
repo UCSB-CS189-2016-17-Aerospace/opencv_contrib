@@ -249,7 +249,7 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
                                  InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
                                  std::vector< std::vector< Point2f > >& _accepted, CV_OUT std::vector< int >& ids,
                                  const Ptr<DetectorParameters> &params = DetectorParameters::create(),
-                                 OutputArrayOfArrays _rejected);
+                                 OutputArrayOfArrays _rejected = noArray());
 
 /**
   * @brief Final filter of markers after its identification
