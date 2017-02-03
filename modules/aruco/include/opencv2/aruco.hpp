@@ -198,14 +198,14 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
 /**
   * @brief Assure order of candidate corners is clockwise direction
   */
-        CV_EXPORTS_W void _reorderCandidatesCorners(CV_OUT std::vector< std::vector< Point2f > > &candidates);
+        CV_EXPORTS_W void _reorderCandidatesCorners(CV_IN_OUT std::vector< std::vector< Point2f > > &candidates);
 
 /**
   * @brief Check candidates that are too close to each other and remove the smaller one
   */
-        CV_EXPORTS_W void _filterTooCloseCandidates(const std::vector< std::vector< Point2f > > &candidatesIn,
+        CV_EXPORTS_W void _filterTooCloseCandidates(CV_IN const std::vector< std::vector< Point2f > > &candidatesIn,
                                        CV_OUT std::vector< std::vector< Point2f > > &candidatesOut,
-                                       const std::vector< std::vector< Point > > &contoursIn,
+                                       CV_IN const std::vector< std::vector< Point > > &contoursIn,
                                        CV_OUT std::vector< std::vector< Point > > &contoursOut,
                                        double minMarkerDistanceRate);
 
@@ -245,9 +245,9 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
 /**
  * @brief Identify square candidates according to a marker dictionary
  */
-        CV_EXPORTS_W void _identifyCandidates(InputArray _image, std::vector< std::vector< Point2f > >& _candidates,
+        CV_EXPORTS_W void _identifyCandidates(InputArray _image, CV_IN std::vector< std::vector< Point2f > >& _candidates,
                                  InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
-                                 std::vector< std::vector< Point2f > >& _accepted, CV_OUT std::vector< int >& ids,
+                                 CV_OUT std::vector< std::vector< Point2f > >& _accepted, CV_OUT std::vector< int >& ids,
                                  const Ptr<DetectorParameters> &params,
                                  OutputArrayOfArrays _rejected);
 
