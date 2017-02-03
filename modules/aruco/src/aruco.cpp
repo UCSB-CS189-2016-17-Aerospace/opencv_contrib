@@ -181,8 +181,7 @@ void _findMarkerContours(InputArray _in, vector< vector< Point2f > > &candidates
 /**
   * @brief Assure order of candidate corners is clockwise direction
   */
-//void _reorderCandidatesCorners(vector< vector< Point2f > > &candidates) {
-void _reorderCandidatesCorners(InputArrayOfArrays &candidates) {
+void _reorderCandidatesCorners(vector< vector< Point2f > > &candidates) {
 
     for(unsigned int i = 0; i < candidates.size(); i++) {
         double dx1 = candidates[i][1].x - candidates[i][0].x;
