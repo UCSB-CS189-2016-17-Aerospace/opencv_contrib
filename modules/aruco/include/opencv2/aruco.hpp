@@ -212,8 +212,8 @@ CV_EXPORTS_W void detectMarkers(InputArray image, const Ptr<Dictionary> &diction
 /**
  * @brief Detect square candidates in the input image
  */
-        CV_EXPORTS_W void _detectCandidates(InputArray _image, std::vector< std::vector< Point2f > >& candidatesOut,
-                               std::vector< std::vector< Point > >& contoursOut, const Ptr<DetectorParameters> &_params);
+        CV_EXPORTS_W void _detectCandidates(InputArray _image, CV_OUT std::vector< std::vector< Point2f > >& candidatesOut,
+                               CV_OUT std::vector< std::vector< Point > >& contoursOut, const Ptr<DetectorParameters> &_params);
 
 /**
  * @brief Initial steps on finding square candidates
