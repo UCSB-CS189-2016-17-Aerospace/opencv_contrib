@@ -421,8 +421,8 @@ Mat _extractBits(InputArray _image, InputArray _corners, int markerSize,
     // remove perspective
     Mat transformation = getPerspectiveTransform(_corners, resultImgCorners);
     if(CUDA_FOR_ARUCO) {
-        GpuMat _image_gpu;
-        GpuMat resultImg_gpu;
+        cuda::GpuMat _image_gpu;
+        cuda::GpuMat resultImg_gpu;
         _image_gpu.upload(_image);
         cuda::warpPerspective(_image_gpu, resultImg_gpu, transformation, Size(resultImgSize, resultImgSize), INTER_LINEAR);
         resultImg_gpu.download(resultImg);
