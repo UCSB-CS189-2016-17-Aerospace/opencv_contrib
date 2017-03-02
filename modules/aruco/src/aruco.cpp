@@ -42,7 +42,7 @@ the use of this software, even if advised of the possibility of such damage.
 #include <opencv2/imgproc.hpp>
 
 // Include CUDA-related items
-#include <opencv/core/cuda.hpp>
+#include <opencv2/core/cuda.hpp>
 #include <opencv2/cudawarping.hpp>
 #include <opencv2/cudaimgproc.hpp>
 
