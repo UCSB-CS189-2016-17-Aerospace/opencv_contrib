@@ -41,12 +41,19 @@ the use of this software, even if advised of the possibility of such damage.
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 
+// Include CUDA-related items
+#include <opencv/core/cuda.hpp>
+#include <opencv2/cudawarping.hpp>
+#include <opencv2/cudaimgproc.hpp>
+
+
 namespace cv {
 namespace aruco {
 
 using namespace std;
 
-
+// Define constant to control CUDA
+bool CUDA_FOR_ARUCO = true;
 
 
 /**
@@ -93,7 +100,12 @@ static void _convertToGrey(InputArray _in, OutputArray _out) {
 
     _out.create(_in.getMat().size(), CV_8UC1);
     if(_in.getMat().type() == CV_8UC3)
-        cvtColor(_in.getMat(), _out.getMat(), COLOR_BGR2GRAY);
+        if(CUDA_FOR_ARUCO) {
+            cuda::cvtColor(_in.getMat(), _out.getMat(), COLOR_BGR2GRAY);
+        } else {
+            cvtColor(_in.getMat(), _out.getMat(), COLOR_BGR2GRAY);
+        }
+
     else
         _in.getMat().copyTo(_out);
 }
@@ -408,8 +420,17 @@ Mat _extractBits(InputArray _image, InputArray _corners, int markerSize,
 
     // remove perspective
     Mat transformation = getPerspectiveTransform(_corners, resultImgCorners);
-    warpPerspective(_image, resultImg, transformation, Size(resultImgSize, resultImgSize),
-                    INTER_NEAREST);
+    if(CUDA_FOR_ARUCO) {
+        GpuMat _image_gpu;
+        GpuMat resultImg_gpu;
+        _image_gpu.upload(_image);
+        cuda::warpPerspective(_image_gpu, resultImg_gpu, transformation, Size(resultImgSize, resultImgSize), INTER_LINEAR);
+        resultImg_gpu.download(resultImg);
+    } else {
+        warpPerspective(_image, resultImg, transformation, Size(resultImgSize, resultImgSize),
+                        INTER_NEAREST);
+    }
+
 
     // output image containing the bits
     Mat bits(markerSizeWithBorders, markerSizeWithBorders, CV_8UC1, Scalar::all(0));
